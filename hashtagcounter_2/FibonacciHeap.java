@@ -3,7 +3,8 @@
  * @author Rishabh Aryan Das
  *
  */
-public class FibonacciHeap {
+public class FibonacciHeap 
+{
 	/** to store the maximum node in Fibonacci heap. */
 	private Node maxNode;
 	/** to store the number of nodes in Fibonacci heap. */
@@ -26,7 +27,7 @@ public class FibonacciHeap {
 	 * @param newNode
 	 * @param key
 	 */
-	public void insert(Node newNode, int key) {
+	public void addNode(Node newNode, int key) {
 		newNode.key = key;
 		//Heap is not empty
 		if(maxNode != null) {                  
@@ -78,11 +79,11 @@ public class FibonacciHeap {
 	 * Max Fibonacci heap
 	 * @return Node
 	 */
-	public Node removeMax() {
-		Node nodeToDelete = maxNode;
-		if(nodeToDelete != null) {
-			int  childCount = nodeToDelete.nodeDegree;
-			Node child = nodeToDelete.childNode;
+	public Node deleteMax() {
+		Node nodeToRemove = maxNode;
+		if(nodeToRemove != null) {
+			int  childCount = nodeToRemove.nodeDegree;
+			Node child = nodeToRemove.childNode;
 			Node tempRight;
 			// for each child of the node to delete...
 			while(childCount > 0) {
@@ -101,20 +102,20 @@ public class FibonacciHeap {
 				childCount--;
 			}
 			//remove the node to delete from the root list
-			nodeToDelete.leftNode.rightNode = nodeToDelete.rightNode;
-			nodeToDelete.rightNode.leftNode = nodeToDelete.leftNode;
-			if(nodeToDelete == nodeToDelete.rightNode) {
+			nodeToRemove.leftNode.rightNode = nodeToRemove.rightNode;
+			nodeToRemove.rightNode.leftNode = nodeToRemove.leftNode;
+			if(nodeToRemove == nodeToRemove.rightNode) {
 				maxNode = null;
 			}
 			else {
-				maxNode = nodeToDelete.rightNode;
+				maxNode = nodeToRemove.rightNode;
 				pairwiseCombine();
 			}
 			//decrement the heap size
 			nodeCount--;
 		}
 		//return the removed maxNode
-		return nodeToDelete;
+		return nodeToRemove;
 	}
 
 	/**
@@ -148,7 +149,8 @@ public class FibonacciHeap {
 	 * childCut value FALSE is encountered.
 	 * @param child
 	 */
-	protected void cascadeCut(Node child) {
+	protected void cascadeCut(Node child) 
+	{
 		Node parent = child.parentNode;
 		if(parent != null) {
 			if(!child.childCut) {
@@ -165,7 +167,8 @@ public class FibonacciHeap {
 	 * Combines the trees in the heap by joining trees of equal degree
 	 * until there are no more trees of equal degree in the root list.
 	 */
-	protected void pairwiseCombine() {
+	protected void pairwiseCombine() 
+	{
 		int arraySize = nodeCount + 1;
 		Node[] roots = new Node[arraySize];
 		for(int i = 0; i < arraySize; i++) {
